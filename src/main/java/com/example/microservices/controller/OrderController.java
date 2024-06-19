@@ -25,7 +25,7 @@ public class OrderController {
         System.out.println("Заказ сохранен: " + order);
     }
 
-    @RabbitListener(queues = "another_notification_queue")
+    @RabbitListener(queues = "notification_queue")
     public void receiveAnotherOrderNotification(Order order) {
         System.out.println("Получено другое уведомление о заказе: " + order);
     }

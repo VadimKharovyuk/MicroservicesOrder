@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     public static final String QUEUE_NAME = "notification_queue";
-    public static final String ANOTHER_QUEUE_NAME = "another_notification_queue";
+
     public static final String EXCHANGE_NAME = "order_exchange";
 
     @Bean
@@ -21,10 +21,6 @@ public class RabbitMQConfig {
         return new Queue(QUEUE_NAME, true);
     }
 
-    @Bean
-    public Queue anotherQueue() {
-        return new Queue(ANOTHER_QUEUE_NAME, true);
-    }
 
     @Bean
     public FanoutExchange emailExchange() {
@@ -51,7 +47,7 @@ public class RabbitMQConfig {
                                                     MessageListenerAdapter listenerAdapter) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(QUEUE_NAME, ANOTHER_QUEUE_NAME); // Указываем обе очереди
+        container.setQueueNames(QUEUE_NAME);
         container.setMessageListener(listenerAdapter);
         return container;
     }
